@@ -56,7 +56,8 @@ public class HouseMapController {
 	@ApiOperation(value = "아파트 목록", notes = "지역코드와 매매계약월을 기준으로 아파트 목록을 반환한다.", response = List.class)
 	@GetMapping(value = "/aptlist/{lawd_cd}/{deal_ymd}", produces = "application/json;charset=utf-8")
 	public ResponseEntity<String> aptList(@PathVariable("lawd_cd") String lawdCd, @PathVariable("deal_ymd") String dealYmd) throws IOException {
-		logger.info("sido - 호출");
+		logger.info("aptlist - 호출");
+		logger.info("{} {}",lawdCd,dealYmd);
 //		String serviceKey = "9Xo0vlglWcOBGUDxH8PPbuKnlBwbWU6aO7%2Bk3FV4baF9GXok1yxIEF%2BIwr2%2B%2F%2F4oVLT8bekKU%2Bk9ztkJO0wsBw%3D%3D";
 		String serviceKey = "YPQcuObIIXja3DSgilpUQ9F2i8woQiHOFlXAGGVQoGEBIXjWTApQ2sGkGNqtd3HdFdF5oJUvVIVCK5tyBCAPmg%3D%3D";
 		StringBuilder urlBuilder = new StringBuilder(
@@ -67,7 +68,7 @@ public class HouseMapController {
 		urlBuilder
 				.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 페이지번호 */
 		urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
-				+ URLEncoder.encode("10", "UTF-8")); /* 한 페이지 결과 수 */
+				+ URLEncoder.encode("100", "UTF-8")); /* 한 페이지 결과 수 */
 		urlBuilder.append(
 				"&" + URLEncoder.encode("LAWD_CD", "UTF-8") + "=" + URLEncoder.encode(lawdCd, "UTF-8")); /* 지역코드 */
 		urlBuilder.append(
