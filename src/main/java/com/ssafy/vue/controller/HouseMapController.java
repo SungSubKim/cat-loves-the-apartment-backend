@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 import org.json.XML;
@@ -21,16 +23,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.util.CrawlImage;
 import com.ssafy.vue.model.SidoGugunCodeDto;
 import com.ssafy.vue.model.service.HouseMapService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/map")
 @Api("Map 컨트롤러  API V1")
+@Slf4j
 public class HouseMapController {
 
 	private final Logger logger = LoggerFactory.getLogger(HouseMapController.class);
@@ -55,16 +60,16 @@ public class HouseMapController {
 
 	@ApiOperation(value = "아파트 목록", notes = "지역코드와 매매계약월을 기준으로 아파트 목록을 반환한다.", response = List.class)
 	@GetMapping(value = "/aptlist/{lawd_cd}/{deal_ymd}", produces = "application/json;charset=utf-8")
-	public ResponseEntity<String> aptList(@PathVariable("lawd_cd") String lawdCd, @PathVariable("deal_ymd") String dealYmd) throws IOException {
+	public ResponseEntity<String> aptList(@PathVariable("lawd_cd") String lawdCd,
+			@PathVariable("deal_ymd") String dealYmd) throws IOException {
 		logger.info("aptlist - 호출");
-		logger.info("{} {}",lawdCd,dealYmd);
+		logger.info("{} {}", lawdCd, dealYmd);
 //		String serviceKey = "9Xo0vlglWcOBGUDxH8PPbuKnlBwbWU6aO7%2Bk3FV4baF9GXok1yxIEF%2BIwr2%2B%2F%2F4oVLT8bekKU%2Bk9ztkJO0wsBw%3D%3D";
 		String serviceKey = "YPQcuObIIXja3DSgilpUQ9F2i8woQiHOFlXAGGVQoGEBIXjWTApQ2sGkGNqtd3HdFdF5oJUvVIVCK5tyBCAPmg%3D%3D";
 		StringBuilder urlBuilder = new StringBuilder(
 				"http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev"); /*
 																															 */
-		urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8")
-				+ "=" + serviceKey);
+		urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + serviceKey);
 		urlBuilder
 				.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 페이지번호 */
 		urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
@@ -96,6 +101,18 @@ public class HouseMapController {
 		String jsonStr = json.toString();
 
 		return new ResponseEntity<String>(jsonStr, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "아파트이미지", notes = "아파트이미지", response = List.class)
+	@GetMapping("/image")
+	public ResponseEntity<Map<String, String>> aptImage(@RequestParam("aptName") String aptName) throws Exception {
+		log.debug("aptIMAGE 호출, {}", aptName);
+		CrawlImage crawl = new CrawlImage();
+		String imageUrl = crawl.doCrawlImage(aptName);
+		log.debug("aptIMAGE 호출 응답, {}", imageUrl);
+		Map<String, String> result = new HashMap<>();
+		result.put("imageUrl", imageUrl);
+		return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
 	}
 
 //	@GetMapping("/dong")
