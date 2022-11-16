@@ -44,13 +44,14 @@ public class MemberController {
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(
 			@RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) MemberDto memberDto) {
+		logger.info("login controller, {}",memberDto.toString());
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
 			MemberDto loginUser = memberService.login(memberDto);
 			if (loginUser != null) {
 				String token = jwtService.create("userid", loginUser.getUserid(), "access-token");// key, data, subject
-				logger.debug("로그인 토큰정보 : {}", token);
+				logger.info("로그인 토큰정보 : {}", token);
 				resultMap.put("access-token", token);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;

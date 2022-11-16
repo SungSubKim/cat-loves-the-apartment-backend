@@ -1,6 +1,7 @@
 package com.ssafy.vue.model;
 
 public class HousedealDto {
+	String apartmentCode;
 	String apartmentName;
 	String dong;
 	String latitude;
@@ -14,18 +15,13 @@ public class HousedealDto {
 			apartmentName, dong, latitude, longitude);
 	}
 	public HousedealDto() {}
-	public HousedealDto(String apartmentName, String floor, String area, String dong, String amount, String latitude,
-			String longitude) {
-		super();
-		this.apartmentName = apartmentName;
-		this.floor = floor;
-		this.area = area;
-		this.dong = dong;
-		this.amount = amount;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
 
+	public String getApartmentCode() {
+		return apartmentCode;
+	}
+	public void setApartmentCode(String apartmentCode) {
+		this.apartmentCode = apartmentCode;
+	}
 	public String getApartmentName() {
 		return apartmentName;
 	}

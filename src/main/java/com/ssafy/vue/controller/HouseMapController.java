@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.util.CrawlImage;
 import com.ssafy.vue.model.SidoGugunCodeDto;
 import com.ssafy.vue.model.service.HouseMapService;
 
@@ -107,8 +106,9 @@ public class HouseMapController {
 	@GetMapping("/image")
 	public ResponseEntity<Map<String, String>> aptImage(@RequestParam("aptName") String aptName) throws Exception {
 		log.debug("aptIMAGE 호출, {}", aptName);
-		CrawlImage crawl = new CrawlImage();
-		String imageUrl = crawl.doCrawlImage(aptName);
+//		CrawlImage crawl = new CrawlImage();
+//		String imageUrl = crawl.doCrawlImage(aptName);
+		String imageUrl = "hi";
 		log.debug("aptIMAGE 호출 응답, {}", imageUrl);
 		Map<String, String> result = new HashMap<>();
 		result.put("imageUrl", imageUrl);

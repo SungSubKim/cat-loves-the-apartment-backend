@@ -14,6 +14,6 @@ public interface HousedealMapper {
 
 	List<HousedealDto> select(Map params) throws SQLException;
 
-	List<HousedealDto> selectAll(String dongCode) throws SQLException;
+	List<HousedealDto> selectAll(String gugunCode) throws SQLException;
 
 }
