@@ -13,12 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.housedeal.model.HousedealDto;
-import com.ssafy.housedeal.model.service.HousedealService;
-import com.ssafy.regcode.model.RegcodeDto;
+import com.ssafy.vue.model.HousedealDto;
+import com.ssafy.vue.model.service.HousedealService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
