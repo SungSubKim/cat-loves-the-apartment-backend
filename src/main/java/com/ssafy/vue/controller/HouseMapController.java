@@ -103,7 +103,7 @@ public class HouseMapController {
 		return new ResponseEntity<String>(jsonStr, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "아파트이미지", notes = "아파트이미지", response = List.class)
+	@ApiOperation(value = "아파트이미지", notes = "아파트이미지")
 	@GetMapping("/image")
 	public ResponseEntity<Map<String, String>> aptImage(@RequestParam("aptName") String aptName) throws Exception {
 		log.debug("aptIMAGE 호출, {}", aptName);
@@ -111,8 +111,11 @@ public class HouseMapController {
 		String imageUrl = crawl.doCrawlImage(aptName);
 		log.debug("aptIMAGE 호출 응답, {}", imageUrl);
 		Map<String, String> result = new HashMap<>();
-		result.put("imageUrl", imageUrl);
+		if(imageUrl!=null) {
+			result.put("imageUrl", imageUrl);
+		}
 		return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
+		
 	}
 
 //	@GetMapping("/dong")

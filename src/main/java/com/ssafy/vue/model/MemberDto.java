@@ -17,6 +17,12 @@ public class MemberDto {
 	@ApiModelProperty(value = "회원 가입일")
 	private String joindate;
 
+	@Override
+	public String toString() {
+		return "MemberDto [userid=" + userid + ", username=" + username + ", userpwd=" + userpwd + ", email=" + email
+				+ ", joindate=" + joindate + "]";
+	}
+
 	public String getUserid() {
 		return userid;
 	}
