@@ -15,5 +15,8 @@
 		from ssafy_member
 		where userid = #{userid}
 	</select>
-	
+	<insert id="joinMember" parameterType="memberDto">
+		insert into ssafy_member (username, userid, userpwd, email)
+		values (#{username}, #{userid}, #{userpwd}, #{email})
+	</insert>
 </mapper>

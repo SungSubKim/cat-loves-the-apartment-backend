@@ -10,11 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.vue.model.MemberDto;
@@ -39,7 +41,20 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-
+	
+	@PostMapping("/join")
+	public ResponseEntity<String> join(
+			@RequestBody MemberDto memberDto) {
+		logger.debug("memberDto info : {}", memberDto);
+		try {
+			memberService.joinMember(memberDto);
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지를 반환한다.", response = Map.class)
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(
@@ -68,15 +83,15 @@ public class MemberController {
 	}
 	
 	@ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
-	@GetMapping("/info/{userid}")
+	@GetMapping("/{userid}")
 	public ResponseEntity<Map<String, Object>> getInfo(
 			@PathVariable("userid") @ApiParam(value = "인증할 회원의 아이디.", required = true) String userid,
 			HttpServletRequest request) {
 //		logger.debug("userid : {} ", userid);
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-		if (jwtService.isUsable(request.getHeader("access-token"))) {
-			logger.info("사용 가능한 토큰!!!");
+//		if (jwtService.isUsable(request.getHeader("access-token"))) {
+//			logger.info("사용 가능한 토큰!!!");
 			try {
 //				로그인 사용자 정보.
 				MemberDto memberDto = memberService.userInfo(userid);
@@ -88,11 +103,11 @@ public class MemberController {
 				resultMap.put("message", e.getMessage());
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
 			}
-		} else {
-			logger.error("사용 불가능 토큰!!!");
-			resultMap.put("message", FAIL);
-			status = HttpStatus.ACCEPTED;
-		}
+//		} else {
+//			logger.error("사용 불가능 토큰!!!");
+//			resultMap.put("message", FAIL);
+//			status = HttpStatus.ACCEPTED;
+//		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
