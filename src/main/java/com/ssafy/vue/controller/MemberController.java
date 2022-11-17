@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.vue.model.MemberDto;
@@ -42,15 +43,15 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@PostMapping("/join")
-	public String join(MemberDto memberDto, Model model) {
+	public ResponseEntity<String> join(
+			@RequestBody MemberDto memberDto) {
 		logger.debug("memberDto info : {}", memberDto);
 		try {
 			memberService.joinMember(memberDto);
-			return "redirect:/user/login";
+			return new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", "회원 가입 중 문제 발생!!!");
-			return "error/error";
+			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
