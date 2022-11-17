@@ -47,17 +47,14 @@ public class HousedealController {
 
 	@ApiOperation(value = "기간별 전체 거래정보", notes = "해당 동 코드의  <big>기간별 전체 전체거래정보</big>을 반환해 줍니다.")
 	@GetMapping(value = "/{GUGUN_CODE}/{DEAL_YMD}", produces = "application/json;charset=utf-8")
-	public ResponseEntity<Map<String, List<HousedealDto>>> 
-		select(@PathVariable("GUGUN_CODE") String gugunCode,@PathVariable("DEAL_YMD") String dealYmd) 
-				throws IOException, SQLException {
+	public ResponseEntity<List<HousedealDto>> select(@PathVariable("GUGUN_CODE") String gugunCode,
+			@PathVariable("DEAL_YMD") String dealYmd) throws IOException, SQLException {
 		String dealYear = dealYmd.substring(0, 4);
 		String dealMonth = dealYmd.substring(4, 6);
 		logger.info("!!!!!select() 실행 , Param : {}, {}, {}", gugunCode, dealYear, dealMonth);
 		List<HousedealDto> list = housedealService.select(gugunCode, dealYear, dealMonth);
 		logger.info("list 크기 : {}", list.size());
-		Map<String, List<HousedealDto>> convList = new HashMap<>();
-		convList.put("housedeals", list);
-		return new ResponseEntity<Map<String, List<HousedealDto>>>(convList, HttpStatus.OK);
+		return new ResponseEntity<List<HousedealDto>>(list, HttpStatus.OK);
 	}
 }
 

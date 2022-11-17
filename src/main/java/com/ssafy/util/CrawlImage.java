@@ -1,8 +1,8 @@
 package com.ssafy.util;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -11,20 +11,30 @@ import org.jsoup.select.Elements;
 
 public class CrawlImage {
 
-	static public String doCrawlImage(String aptName) {
-		final String stockList = "https://search.naver.com/search.naver?where=image&query=" + aptName;
-		Connection conn = Jsoup.connect(stockList);
-		Set<String> aptImages = new HashSet<>();
-		try {
-			Element ele = conn.get().selectFirst(".thumb");
-			Elements child = ele.select("img");
-			for (Element element2 : child) {
-				aptImages.add(element2.attr("src"));
-				return element2.attr("src");
-			}
-		} catch (IOException ignored) {
-			System.out.println("??");
-		}
-		return null;
+	public static void main(String[] args) {
+		String imgUrl = doCrawlImage("광화문풍림스페이스본(101동~105동)");
+		System.out.println(imgUrl);
 	}
+	
+
+	static public String doCrawlImage(String aptName) {
+//		final String naverImgUrl = "https://www.google.com/search?q=" + aptName+"&tbm=isch";
+		final String naverImgUrl = "https://kr.freepik.com/photos/%EC%95%84%ED%8C%8C%ED%8A%B8";
+		System.out.println(naverImgUrl);
+		Connection conn = Jsoup.connect(naverImgUrl);
+		List<String> aptImages = new ArrayList<>();
+		try {
+			Elements elements = conn.timeout(1500).get().select("img.min-size-to-snippet");
+			for (Element element : elements) {
+				String src = element.attr("src");
+				if(!src.equals(""))
+					aptImages.add(src);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Random random = new Random();	
+		return aptImages.size() == 0 ? null : aptImages.get(random.nextInt(aptImages.size()));
+	}
+
 }
