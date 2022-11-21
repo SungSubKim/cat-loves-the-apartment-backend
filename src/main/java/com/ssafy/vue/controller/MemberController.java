@@ -48,10 +48,10 @@ public class MemberController {
 		logger.debug("memberDto info : {}", memberDto);
 		try {
 			memberService.joinMember(memberDto);
-			return new ResponseEntity<String>("success", HttpStatus.OK);
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

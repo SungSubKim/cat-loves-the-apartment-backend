@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.member.model.MemberDto;
-import com.ssafy.member.model.service.MemberService;
+import com.ssafy.vue.model.MemberDto;
+import com.ssafy.vue.model.service.MemberService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -49,7 +49,7 @@ public class AdminUserController {
 	public ResponseEntity<?> userList() {
 		logger.debug("userList call");
 		try {
-			List<MemberDto> list = memberService.listMember(null);
+			List<MemberDto> list = memberService.listMember();
 			if (list != null && !list.isEmpty()) {
 				return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
 //				return new ResponseEntity<List<MemberDto>>(HttpStatus.NOT_FOUND);
@@ -68,7 +68,7 @@ public class AdminUserController {
 		logger.debug("userRegister memberDto : {}", memberDto);
 		try {
 			memberService.joinMember(memberDto);
-			List<MemberDto> list = memberService.listMember(null);
+			List<MemberDto> list = memberService.listMember();
 			return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
 //			return new ResponseEntity<Integer>(cnt, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -103,10 +103,10 @@ public class AdminUserController {
 		logger.debug("userModify memberDto : {}", memberDto);
 		try {
 			memberService.updateMember(memberDto);
-			List<MemberDto> list = memberService.listMember(null);
-			return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
+//			List<MemberDto> list = memberService.listMember();
+			return new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			return new ResponseEntity<String>("fail", HttpStatus.OK);
 		}
 	}
 
@@ -116,7 +116,7 @@ public class AdminUserController {
 		logger.debug("userDelete userid : {}", userId);
 		try {
 			memberService.deleteMember(userId);
-			List<MemberDto> list = memberService.listMember(null);
+			List<MemberDto> list = memberService.listMember();
 			return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);

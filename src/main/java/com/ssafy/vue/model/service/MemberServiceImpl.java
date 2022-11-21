@@ -33,8 +33,8 @@ public class MemberServiceImpl implements MemberService {
 		return;
 	}
 	@Override
-	public List<MemberDto> listMember(Map<String, Object> map) throws Exception {
-		return sqlSession.getMapper(MemberMapper.class).listMember(map);
+	public List<MemberDto> listMember() throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).listMember();
 	}
 
 	@Override
