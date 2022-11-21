@@ -107,8 +107,9 @@ public class HouseMapController {
 	@GetMapping("/image")
 	public ResponseEntity<Map<String, String>> aptImage(@RequestParam("aptName") String aptName) throws Exception {
 		log.debug("aptIMAGE 호출, {}", aptName);
-		CrawlImage crawl = new CrawlImage();
-		String imageUrl = crawl.doCrawlImage(aptName);
+//		CrawlImage crawl = new CrawlImage();
+//		String imageUrl = crawl.doCrawlImage(aptName);
+		String imageUrl = "https://img.freepik.com/free-photo/beautiful-landscape-and-cityscape-of-seoul-city_74190-3198.jpg?w=1060&t=st=1668991073~exp=1668991673~hmac=90836c10c4926b261096d9f282cce7b076d11b8bf202b48deb10925c36358848";
 		log.debug("aptIMAGE 호출 응답, {}", imageUrl);
 		Map<String, String> result = new HashMap<>();
 		if(imageUrl!=null) {
