@@ -1,6 +1,7 @@
 package com.ssafy.vue.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.vue.model.MemberDto;
@@ -84,12 +86,38 @@ public class AdminUserController {
 //			@ApiImplicitParam(name = "param2", value = "파마미터2", required = false, dataType = "int", paramType = "query") 
 	})
 	@GetMapping(value = "/user/{userid}")
-	public ResponseEntity<?> userInfo(@PathVariable("userid") String userId) {
+	public ResponseEntity<?> userInfo(@PathVariable("userid") String userId) { 
 		logger.debug("userInfo userid : {}", userId);
 		try {
 			MemberDto memberDto = memberService.getMember(userId);
 			if (memberDto != null)
 				return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
+			else
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	
+	@GetMapping(value = "/searchUser")
+	public ResponseEntity<?> serach(@RequestParam Map<String,String> map) { 
+		logger.debug("search param map: {}", map.toString());
+		String selectedValue = map.get("selected"), searchValue = map.get("search")+"%";
+		logger.debug("search value: {}", searchValue);
+		try {
+			List<MemberDto> list=null;
+			if(selectedValue.equals("아이디")) {
+				list = memberService.getMemberByUserid(searchValue);
+			}
+			else if(selectedValue.equals("사용자명")) {
+				list = memberService.getMemberByUsername(searchValue);
+			}
+			else if(selectedValue.equals("이메일")) {
+				list = memberService.getMemberByEmail(searchValue);
+			}
+			logger.debug("searchUser list size :{}",list!=null? list.size() : 0);
+			if (list != null)
+				return new ResponseEntity<List<MemberDto>>(list, HttpStatus.OK);
 			else
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {

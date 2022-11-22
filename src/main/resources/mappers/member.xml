@@ -46,4 +46,28 @@
 		delete from ssafy_member 
 		where userid = #{userid}
 	</delete>
+	
+	
+	<select id="getMemberByUserid" parameterType="String" resultType="memberDto">
+		select username, userid, userpwd, email, joindate
+		from ssafy_member
+		where userid like #{userid}
+		order by joindate
+	</select>
+	
+	
+	<select id="getMemberByUsername" parameterType="String" resultType="memberDto">
+		select username, userid, userpwd, email, joindate
+		from ssafy_member
+		where username like #{username}
+		order by joindate
+	</select>
+	
+	
+	<select id="getMemberByEmail" parameterType="String" resultType="memberDto">
+		select username, userid, userpwd, email, joindate
+		from ssafy_member
+		where email like #{email}
+		order by joindate
+	</select>
 </mapper>

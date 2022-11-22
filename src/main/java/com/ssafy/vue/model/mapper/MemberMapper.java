@@ -2,7 +2,6 @@ package com.ssafy.vue.model.mapper;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,4 +19,7 @@ public interface MemberMapper {
 	MemberDto getMember(String userid) throws SQLException;
 	void updateMember(MemberDto memberDto) throws SQLException;
 	void deleteMember(String userid) throws SQLException;
+	List<MemberDto> getMemberByUserid(String userid) throws SQLException;
+	List<MemberDto> getMemberByUsername(String username) throws SQLException;
+	List<MemberDto> getMemberByEmail(String email) throws SQLException;
 }
