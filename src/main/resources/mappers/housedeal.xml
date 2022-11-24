@@ -29,7 +29,6 @@
 		from houseinfo 
 		join housedeal on houseinfo.aptCode = housedeal.aptCode
 		on left(houseinfo.dongcode,5) = #{gugunCode} and housedeal.dealYear = #{dealYear} and housedeal.dealMonth = #{dealMonth};
-		<!-- group by houseinfo.aptCode; -->
 	</select>
 
 
