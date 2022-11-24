@@ -31,5 +31,6 @@ build/
 .vscode/
 ### Added Folder ###
 log/
-.mvn/
+##.mvn/
 et
+*.log
