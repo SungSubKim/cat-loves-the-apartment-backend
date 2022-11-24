@@ -22,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SuppressWarnings("unchecked") // warning 제거
 public class SwaggerConfiguration {
 
+// http://localhost:9999/vue/swagger-ui.html
 //	Swagger-UI 2.x 확인
 //	http://localhost[:8080]/{your-app-root}/swagger-ui.html
 	//하이

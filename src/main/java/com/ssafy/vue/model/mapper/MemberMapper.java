@@ -22,4 +22,5 @@ public interface MemberMapper {
 	List<MemberDto> getMemberByUserid(String userid) throws SQLException;
 	List<MemberDto> getMemberByUsername(String username) throws SQLException;
 	List<MemberDto> getMemberByEmail(String email) throws SQLException;
+	MemberDto checkMember(MemberDto memberDto) throws SQLException;
 }

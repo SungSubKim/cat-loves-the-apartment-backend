@@ -61,9 +61,9 @@ public class MemberController {
 		logger.debug("param:{}", temp);
 		String email = (String) temp.get("email");
 		String initializedPwd = (String) temp.get("initializePwd");
-		
+
 		sendMailService.sendInitializedPwd(email, initializedPwd);
-		
+
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 	}
 
@@ -92,6 +92,14 @@ public class MemberController {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	@PostMapping("/find-user")
+	public ResponseEntity<?> findUser(@RequestBody MemberDto memberDto) throws Exception {
+		logger.info("find-user {}", memberDto);
+		MemberDto checkMember = memberService.checkMember(memberDto);
+		String result = checkMember == null ? "FAIL" : "SUCCESS";
+		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)

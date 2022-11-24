@@ -70,4 +70,10 @@
 		where email like #{email}
 		order by joindate
 	</select>
+	
+	<select id="checkMember" parameterType="memberDto" resultType="memberDto">
+		select *
+		from ssafy_member
+		where userid = #{userid} and username = #{username} and email = #{email}
+	</select>
 </mapper>

@@ -65,4 +65,9 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberDto> getMemberByEmail(String email) throws Exception {
 		return sqlSession.getMapper(MemberMapper.class).getMemberByEmail(email);
 	}
+
+	@Override
+	public MemberDto checkMember(MemberDto memberDto) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).checkMember(memberDto);
+	}
 }

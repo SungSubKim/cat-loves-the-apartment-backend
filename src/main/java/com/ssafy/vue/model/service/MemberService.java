@@ -18,4 +18,5 @@ public interface MemberService {
 	List<MemberDto> getMemberByUserid(String userid) throws Exception;
 	List<MemberDto> getMemberByUsername(String username) throws Exception;
 	List<MemberDto> getMemberByEmail(String email) throws Exception;
+	MemberDto checkMember(MemberDto memberDto) throws Exception;
 }
