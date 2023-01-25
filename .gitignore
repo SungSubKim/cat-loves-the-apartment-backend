@@ -4,12 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-<<<<<<< HEA
-### SSTS ###
-
-=======
-### BSTS ###
->>>>>>> e9c26b6d508811ff28bcb974d32e1a558a4281
+### STS ###
 .apt_generated
 .factorypath
 .settings
