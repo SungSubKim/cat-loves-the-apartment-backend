@@ -4,7 +4,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+<<<<<<< HEAD
 ### ASTS ###
+=======
+### BSTS ###
+>>>>>>> 98cc1afe3630c052a63d5892d8e9fcb341384739
 .apt_generated
 .factorypath
 .settings
