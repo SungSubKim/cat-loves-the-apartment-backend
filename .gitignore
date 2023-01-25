@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+### BSTS ###
 .apt_generated
 .factorypath
 .settings
