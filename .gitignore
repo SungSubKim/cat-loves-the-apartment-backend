@@ -4,8 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+<<<<<<< HEAD
 ### SSTS ###
 
+=======
+### BSTS ###
+>>>>>>> e9c26b6d508811ff28bcb974d32e1a558a428116
 .apt_generated
 .factorypath
 .settings
